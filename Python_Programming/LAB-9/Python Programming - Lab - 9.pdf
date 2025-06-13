@@ -1,0 +1,530 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<a href='https://www.darshan.ac.in/'> <img src='https://www.darshan.ac.in/Content/media/DU_Logo.svg' width=\"250\" height=\"300\"/></a>\n",
+    "<pre>\n",
+    "<center><b><h1>Python Programming - 2301CS404</b></center>\n",
+    "<center><b><h1>Lab - 9</b></center>\n",
+    "<center><b><h1>Riya Bhimani | 23010101030 | 27/01/2025 </b></center>\n",
+    "<pre>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# File I/O"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 01) WAP to read and display the contents of a text file. (also try to open the file in some other directory) \n",
+    "#### - in the form of a string\n",
+    "#### - line by line\n",
+    "#### - in the form of a list"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "=== File Content as String ===\n",
+      "10\n",
+      "20\n",
+      "30\n",
+      "40\n",
+      "50\n",
+      "\n",
+      "\n",
+      "=== File Content Line by Line ===\n",
+      "10\n",
+      "20\n",
+      "30\n",
+      "40\n",
+      "50\n",
+      "\n",
+      "\n",
+      "=== File Content as List ===\n",
+      "['10\\n', '20\\n', '30\\n', '40\\n', '50\\n']\n"
+     ]
+    }
+   ],
+   "source": [
+    "file_path = \"new.txt\" \n",
+    "try:\n",
+    "    # Read as a single string\n",
+    "    with open(file_path, \"r\") as file:\n",
+    "        content = file.read()\n",
+    "        print(\"=== File Content as String ===\")\n",
+    "        print(content)\n",
+    "\n",
+    "    # Read line by line\n",
+    "    with open(file_path, \"r\") as file:\n",
+    "        print(\"\\n=== File Content Line by Line ===\")\n",
+    "        for line in file:\n",
+    "            print(line, end=\"\")\n",
+    "\n",
+    "    # Read into a list\n",
+    "    with open(file_path, \"r\") as file:\n",
+    "        content_list = file.readlines()\n",
+    "        print(\"\\n\\n=== File Content as List ===\")\n",
+    "        print(content_list)\n",
+    "\n",
+    "except FileNotFoundError:\n",
+    "    print(\"Error: File not found. Check the path!\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 02) WAP to create file named \"new.txt\" only if it doesn't exist."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "f = open (\"new.txt\" , \"w\")\n",
+    "f.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 03) WAP to read first 5 lines from the text file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 55,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "This\n",
+      "\n",
+      "Is\n",
+      "\n",
+      "A\n",
+      "\n",
+      "Python\n",
+      "\n",
+      "Subject\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "f = open (\"new.txt\" , \"r\")\n",
+    "for i in range(0,5):\n",
+    "    print(f.readline())\n",
+    "f.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 04) WAP to find the longest word(s) in a file"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Subject\n"
+     ]
+    }
+   ],
+   "source": [
+    "fp = open(\"newcopy.txt\",\"r\")\n",
+    "li = fp.readlines()\n",
+    "max = 0\n",
+    "for i in li:\n",
+    "    nw = i.split()\n",
+    "    for j in nw:\n",
+    "        if len(j)>max:\n",
+    "            max = len(j)\n",
+    "            lw = j   \n",
+    "print(lw)\n",
+    "fp.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 05) WAP to count the no. of lines, words and characters in a given text file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 94,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Number of Lines: 7\n",
+      "Number of Words: 7\n",
+      "Number of Characters: 32\n"
+     ]
+    }
+   ],
+   "source": [
+    "f = open (\"new.txt\" , \"r\")\n",
+    "Li=f.readlines()\n",
+    "NoOfLines = len(Li)\n",
+    "NoOfWords = sum(len(i.split()) for i in Li)\n",
+    "NoOfCharacters = sum(len(i) for i in Li)\n",
+    "\n",
+    "print(\"Number of Lines:\" , NoOfLines)\n",
+    "print(\"Number of Words:\" , NoOfWords)\n",
+    "print(\"Number of Characters:\" , NoOfCharacters)\n",
+    "\n",
+    "f.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 06) WAP to copy the content of a file to the another file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Coppied successfully !!\n"
+     ]
+    }
+   ],
+   "source": [
+    "f1 = open (\"new.txt\" , \"r\")\n",
+    "f2 = open (\"newcopy.txt\" , \"w\")\n",
+    "\n",
+    "f2.write(f1.read())\n",
+    "print(\"Coppied successfully !!\")\n",
+    "\n",
+    "f1.close()\n",
+    "f2.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 07) WAP to find the size of the text file. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "The size of the file is: 32 bytes\n"
+     ]
+    }
+   ],
+   "source": [
+    "with open(\"new.txt\", \"rb\") as fp:\n",
+    "    file_size = fp.seek(0, 2)\n",
+    "print(f\"The size of the file is: {file_size} bytes\")\n",
+    "fp.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 08) WAP to create an UDF named frequency to count occurances of the specific word in a given text file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 118,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "2\n",
+      "2\n"
+     ]
+    }
+   ],
+   "source": [
+    "f = open(\"new.txt\" , \"r\")\n",
+    "def NameFrequency(f):\n",
+    "    nThis = 0\n",
+    "    nIs=0\n",
+    "    for i in f:\n",
+    "        nThis += i.split().count('This')\n",
+    "        nIs += i.split().count('Is')\n",
+    "    print(nThis)\n",
+    "    print(nIs)\n",
+    "NameFrequency(f)\n",
+    "f.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 09) WAP to get the score of five subjects from the user, store them in a file. Fetch those marks and find the highest score."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "Enter score for subject 1:  10\n",
+      "Enter score for subject 2:  20\n",
+      "Enter score for subject 3:  30\n",
+      "Enter score for subject 4:  40\n",
+      "Enter score for subject 5:  50\n"
+     ]
+    },
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Stored scores in file:\n",
+      "10\n",
+      "20\n",
+      "30\n",
+      "40\n",
+      "50\n",
+      "\n",
+      "Highest score over these 5 subjects is: 50\n"
+     ]
+    }
+   ],
+   "source": [
+    "li = []\n",
+    "fp = open('Score.txt', \"w+\")\n",
+    "for i in range(5):\n",
+    "    score = int(input(f'Enter score for subject {i+1}: '))\n",
+    "    li.append(score)\n",
+    "    fp.write(str(score) + \"\\n\")\n",
+    "fp.seek(0) \n",
+    "print(\"Stored scores in file:\")\n",
+    "print(fp.read())\n",
+    "fp.close()\n",
+    "max_score = max(li)\n",
+    "print('Highest score over these 5 subjects is:', max_score)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 10) WAP to write first 100 prime numbers to a file named primenumbers.txt \n",
+    "(Note: each number should be in new line)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def is_prime(num):\n",
+    "    if num <= 1:\n",
+    "        return False\n",
+    "    for i in range(2, int(num ** 0.5) + 1):\n",
+    "        if num % i == 0:\n",
+    "            return False\n",
+    "    return True\n",
+    "\n",
+    "with open(\"primenumbers.txt\", \"w\") as file:\n",
+    "    count = 0\n",
+    "    num = 2\n",
+    "    while count < 100:\n",
+    "        if is_prime(num):\n",
+    "            file.write(str(num) + \"\\n\")\n",
+    "            count += 1\n",
+    "        num += 1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 11) WAP to merge two files and write it in a new file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Files merged successfully into MergedFile.txt\n"
+     ]
+    }
+   ],
+   "source": [
+    "def merge_files(file1, file2, output_file):\n",
+    "    with open(file1, \"r\") as f1, open(file2, \"r\") as f2, open(output_file, \"w\") as out:\n",
+    "        out.write(f1.read() + \"\\n\" + f2.read())\n",
+    "\n",
+    "file1 = \"File.txt\"\n",
+    "file2 = \"File2.txt\"\n",
+    "output_file = \"MergedFile.txt\"\n",
+    "\n",
+    "try:\n",
+    "    merge_files(file1, file2, output_file)\n",
+    "    print(f\"Files merged successfully into {output_file}\")\n",
+    "except FileNotFoundError:\n",
+    "    print(\"One or both input files are missing.\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 12) WAP to replace word1 by word2 of a text file. Write the updated data to new file."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdin",
+     "output_type": "stream",
+     "text": [
+      "Enter the word to be updated: pretty\n",
+      "Enter the updated word: beautiful\n"
+     ]
+    }
+   ],
+   "source": [
+    "w1=input(\"Enter the word to be updated:\")\n",
+    "w2=input(\"Enter the updated word:\")\n",
+    "fp=open(\"new.txt\",\"r\")\n",
+    "data=fp.read().split()\n",
+    "data1=str(data)\n",
+    "data2=data1.replace(w1,w2)\n",
+    "fp1=open(\"newcopy.txt\",\"w\")\n",
+    "fp1.write(data2)\n",
+    "fp.close()\n",
+    "fp1.close()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### 13) Demonstrate tell() and seek() for all the cases(seek from beginning-end-current position) taking a suitable example of your choice."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Initial position: 0\n",
+      "Position after seek(7): 7\n",
+      "Character at new position: this \n",
+      "Position after seek(3, 1): 15\n",
+      "Character at new position: a sam\n",
+      "Position after seek(-6, 2): 28\n",
+      "Character at new position:  file.\n"
+     ]
+    }
+   ],
+   "source": [
+    "with open(\"sample.txt\", \"w\") as f:\n",
+    "    f.write(\"Hello, this is a sample text file.\")\n",
+    "\n",
+    "with open(\"sample.txt\", \"rb\") as f:\n",
+    "    # Case 1: tell() at the beginning\n",
+    "    print(\"Initial position:\", f.tell())  # Should be 0\n",
+    "\n",
+    "    # Case 2: seek() from the beginning\n",
+    "    f.seek(7)  # Move to the 7th byte (0-based index)\n",
+    "    print(\"Position after seek(7):\", f.tell())\n",
+    "    print(\"Character at new position:\", f.read(5).decode())  # Read 5 characters\n",
+    "\n",
+    "    # Case 3: seek() from the current position (Must be in binary mode)\n",
+    "    f.seek(3, 1)  # Move 3 bytes forward from current position\n",
+    "    print(\"Position after seek(3, 1):\", f.tell())\n",
+    "    print(\"Character at new position:\", f.read(5).decode())  # Read 5 characters\n",
+    "\n",
+    "    # Case 4: seek() from the end\n",
+    "    f.seek(-6, 2)  # Move 6 bytes before the end of file\n",
+    "    print(\"Position after seek(-6, 2):\", f.tell())\n",
+    "    print(\"Character at new position:\", f.read().decode())  # Read till end\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
